@@ -1,0 +1,143 @@
+Solution 1:
+
+C++ solution 
+
+class Solution {
+public:
+    long long countCompleteDayPairs(vector<int>& hours) {
+        long long ans = 0;
+        vector<int> count(24);
+        for(int i = 0; i < hours.size(); i++) {
+            ans += count[(24 - hours[i] % 24) % 24];
+            count[hours[i] % 24]++;
+        }
+        return ans;
+    }
+};
+
+Java solution 
+
+class Solution {
+    public long countCompleteDayPairs(int[] hours) {
+        long ans = 0;
+        int[] count = new int[24];
+        
+        for (int i = 0; i < hours.length; i++) {
+            ans += count[(24 - hours[i] % 24) % 24];
+            count[hours[i] % 24]++;
+        }
+        
+        return ans;
+    }
+}
+
+Java script solution:
+
+/**
+ * @param {number[]} hours
+ * @return {number}
+ */
+var countCompleteDayPairs = function(hours) {
+    let ans = 0;
+    let count = new Array(24).fill(0);
+    for (let hour of hours) {
+        ans += count[(24 - hour % 24) % 24];
+        count[hour % 24]++;
+    }
+        
+    return ans;
+};
+
+
+
+
+Solution 2:
+
+C++ solution 
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) {
+        int n = nums.size();
+        
+        for (int start = 0; start < n - 1; start++) {
+            
+            for (int end = start + 1; end < n; end++) {
+                
+                int subarraySum = 0;
+                for (int i = start; i <= end; i++) {
+                    subarraySum += nums[i];
+                }
+                
+                
+                if (subarraySum == 0 && k == 0) { 
+                    return true;
+                }
+                if (k != 0 && subarraySum % k == 0) {
+                    return true;
+                }
+            }
+        }
+        
+        
+        return false;
+    }
+};
+
+Java solution 
+
+public class Solution {
+    public boolean checkSubarraySum(int[] nums, int k) {
+        int n = nums.length;
+        
+        for (int start = 0; start < n - 1; start++) {
+            for (int end = start + 1; end < n; end++) {
+                int subarraySum = 0;
+                for (int i = start; i <= end; i++) {
+                    subarraySum += nums[i];
+                }
+                
+                if (subarraySum == 0 && k == 0) { 
+                    return true;
+                }
+                if (k != 0 && subarraySum % k == 0) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+}
+
+
+Java script solutions:
+
+var checkSubarraySum = function(nums, k) {
+    let sum = 0;
+    const remainderMap = new Map();
+    remainderMap.set(0, -1); 
+
+    for (let i = 0; i < nums.length; i++) {
+        sum += nums[i]; 
+      
+       
+        const remainder = sum % k;
+       
+        const adjustedRemainder = remainder < 0 ? remainder + k : remainder;
+        
+        if (remainderMap.has(adjustedRemainder)) {
+            if (i - remainderMap.get(adjustedRemainder) > 1) {
+                return true; // Valid subarray found.
+            }
+        } else {
+            remainderMap.set(adjustedRemainder, i);
+        }
+    }
+
+    return false; 
+};
+
+
+
+
+
